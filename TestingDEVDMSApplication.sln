@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingDEVDMSApplication", "TestingDEVDMSApplication\TestingDEVDMSApplication.csproj", "{71913458-02EF-43B2-9AA4-32E0302D2444}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevExtreme NuGet.config", "DevExtreme NuGet.config", "{1A5E5BB7-A626-4A3C-8A3A-6687F93A168F}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71913458-02EF-43B2-9AA4-32E0302D2444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71913458-02EF-43B2-9AA4-32E0302D2444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71913458-02EF-43B2-9AA4-32E0302D2444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71913458-02EF-43B2-9AA4-32E0302D2444}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28B30206-7901-4DA2-966A-99AC1C11E13E}
+	EndGlobalSection
+EndGlobal
