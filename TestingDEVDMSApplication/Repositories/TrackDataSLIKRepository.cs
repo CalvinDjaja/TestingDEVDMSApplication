@@ -13,7 +13,7 @@ namespace TestingDEVDMSApplication.Repositories
             return GetAll().ToList();
         }
 
-        public TrackDataSLIK GetById(int id)
+        public TrackDataSLIK GetTrackDataSLIKById(int id)
         {
             return GetById(id);
         }

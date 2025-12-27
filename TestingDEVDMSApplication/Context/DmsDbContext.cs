@@ -27,5 +27,9 @@ namespace TestingDEVDMSApplication.Context
         public DbSet<TrackDataSLIK> TrackDataSLIKs { get; set; }
         public DbSet<PemilikanKartuKredit> PemilikanKartuKredits { get; set; }
         public DbSet<TujuanDariPembiayaan> TujuanDariPembiayaans { get; set; }
+
+        public DbSet<ScoreGroup> ScoreGroups { get; set; }
+        public DbSet<ScoreGroupItem> ScoreGroupItems { get; set; }
+        public DbSet<ScoreItem> ScoreItems { get; set; }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace TestingDEVDMSApplication.Repositories.Interface
 {
-    public interface IBaseRepository
+    public interface IBaseRepository<T> where T : class
     {
-        SqlConnection GetConnection();
+        T Add(T entity);
     }
 }

@@ -5,6 +5,6 @@ namespace TestingDEVDMSApplication.Repositories.Interface
     public interface ITrackDataSLIKRepository
     {
         List<TrackDataSLIK> GetAllTrackDataSLIK();
-        TrackDataSLIK GetById(int id);
+        TrackDataSLIK GetTrackDataSLIKById(int id);
     }
 }

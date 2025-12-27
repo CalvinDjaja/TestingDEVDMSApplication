@@ -2,9 +2,9 @@
 
 namespace TestingDEVDMSApplication.Repositories.Interface
 {
-    public interface ICustomerRepository
+    public interface ICustomerRepository : IBaseRepository<Customer>
     {
         List<Customer> GetAllCustomer();
-        Customer GetById(int id);
+        Customer GetCustomerById(int id);
     }
 }

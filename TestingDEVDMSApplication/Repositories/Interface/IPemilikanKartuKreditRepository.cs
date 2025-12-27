@@ -5,6 +5,6 @@ namespace TestingDEVDMSApplication.Repositories.Interface
     public interface IPemilikanKartuKreditRepository
     {
         List<PemilikanKartuKredit> GetAllPemilikanKartuKredit();
-        PemilikanKartuKredit GetById(int id);
+        PemilikanKartuKredit GetPemilikanKartuKreditById(int id);
     }
 }

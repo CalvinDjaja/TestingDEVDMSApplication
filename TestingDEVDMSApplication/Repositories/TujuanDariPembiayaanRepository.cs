@@ -13,7 +13,7 @@ namespace TestingDEVDMSApplication.Repositories
             return GetAll().ToList();
         }
 
-        public TujuanDariPembiayaan GetById(int id)
+        public TujuanDariPembiayaan GetTujuanDariPembiayaanById(int id)
         {
             return GetById(id);
         }

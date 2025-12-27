@@ -13,7 +13,7 @@ namespace TestingDEVDMSApplication.Repositories
             return GetAll().ToList();
         }
 
-        public Customer GetById(int id)
+        public Customer GetCustomerById(int id)
         {
             return GetById(id);
         }

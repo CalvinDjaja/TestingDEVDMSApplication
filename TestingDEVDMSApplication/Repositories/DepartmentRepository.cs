@@ -13,7 +13,7 @@ namespace TestingDEVDMSApplication.Repositories
             return GetAll().ToList();
         }
 
-        public Department GetById(int id)
+        public Department GetDepartmentById(int id)
         {
             return GetById(id);
         }

@@ -36,6 +36,7 @@ namespace TestingDEVDMSApplication.Models
         public int TujuanDariPembiayaan { get; set; }
         public int LTV { get; set; }
 
+        public decimal InfromasiScore { get; set; }
 
 
 

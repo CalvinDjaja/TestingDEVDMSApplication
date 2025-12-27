@@ -12,7 +12,7 @@
     <div class="text-center">
         <h1 class="display-4">Pelanggan</h1>
 
-        @(Html.DevExtreme().DataGrid<Customer>()
+        @(Html.DevExtreme().DataGrid<CustomerVT>()
             .ID("CustomerGrid")
             .ShowBorders(true)
             .DataSource(d => d.Mvc()
@@ -29,9 +29,10 @@
                 {
                     b.Add().Icon("edit").OnClick("editrow");
                 });
-                c.AddFor(a => a.Code).Caption("Code").MinWidth(300);
-                c.AddFor(a => a.Name).Caption("Nama").MinWidth(300);
+                c.AddFor(a => a.CustomerCode).Caption("Code").MinWidth(300);
+                c.AddFor(a => a.CustomerName).Caption("Nama").MinWidth(300);
                 c.AddFor(a => a.BirthDate).Caption("Tanggal Lahir").Format("dd MMMM yyyy").Width("auto");
+                c.AddFor(a => a.InfromasiScore).Caption("Infromasi Score 1").Width("auto");
             })
             .Width("100%")
             .Scrolling(scrolling => scrolling

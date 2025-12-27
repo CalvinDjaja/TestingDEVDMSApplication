@@ -13,7 +13,7 @@ namespace TestingDEVDMSApplication.Repositories
             return GetAll().ToList();
         }
 
-        public RecordPaymentTrack GetById(int id)
+        public RecordPaymentTrack GetRecordPaymentTrackById(int id)
         {
             return GetById(id);
         }

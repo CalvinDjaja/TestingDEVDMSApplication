@@ -1,13 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace TestingDEVDMSApplication.Entity
+﻿namespace TestingDEVDMSApplication.Models
 {
-    [Table("Customer")]
-    public class Customer
+    public class CreateOrUpdateCustomerRequest
     {
-        [Key] public int ID { get; set; }
-
+        public int ID { get; set; }
         public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
@@ -38,7 +33,5 @@ namespace TestingDEVDMSApplication.Entity
         public int LuasBangun { get; set; }
         public int TujuanDariPembiayaanID { get; set; }
         public int LTV { get; set; }
-        public int RowStatus { get; set; }
-
     }
 }

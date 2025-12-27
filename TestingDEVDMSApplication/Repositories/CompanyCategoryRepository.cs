@@ -13,7 +13,7 @@ namespace TestingDEVDMSApplication.Repositories
             return GetAll().ToList();
         }
 
-        public CompanyCategory GetById(int id)
+        public CompanyCategory GetCompanyCategoryById(int id)
         {
             return GetById(id);
         }

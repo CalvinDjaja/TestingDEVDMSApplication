@@ -2,9 +2,9 @@
 
 namespace TestingDEVDMSApplication.Repositories.Interface
 {
-    public interface ICompanyCategoryRepository
+    public interface ICompanyCategoryRepository : IBaseRepository<CompanyCategory>
     {
         List<CompanyCategory> GetAllCompanyCategory();
-        CompanyCategory GetById(int id);
+        CompanyCategory GetCompanyCategoryById(int id);
     }
 }

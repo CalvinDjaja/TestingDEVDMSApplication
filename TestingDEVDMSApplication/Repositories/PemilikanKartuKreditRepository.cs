@@ -13,7 +13,7 @@ namespace TestingDEVDMSApplication.Repositories
             return GetAll().ToList();
         }
 
-        public PemilikanKartuKredit GetById(int id)
+        public PemilikanKartuKredit GetPemilikanKartuKreditById(int id)
         {
             return GetById(id);
         }

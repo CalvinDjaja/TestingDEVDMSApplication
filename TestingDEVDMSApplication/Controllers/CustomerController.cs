@@ -1,6 +1,7 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using TestingDEVDMSApplication.Models;
 using TestingDEVDMSApplication.Services.Interface;
 
 namespace TestingDEVDMSApplication.Controllers
@@ -26,10 +27,21 @@ namespace TestingDEVDMSApplication.Controllers
             return View(ViewRoutes.Customer("Create"));
         }
 
+        [HttpGet, Route("Update/{ID}")]
+        public IActionResult Update(int ID)
+        {
+            var result = customerService.GetCustomerByID(ID);
+            if (result != null)
+            {
+                return View(ViewRoutes.Customer("Update"), result);
+            }
+            return View(ViewRoutes.Customer("Index"));
+        }
+
         [HttpGet("GetQuery")]
         public object GetQuery(DataSourceLoadOptions loadOptions)
         {
-            var data = customerService.GetAllCustomer();
+            var data = customerService.GetIndexAllCustomer();
             return DataSourceLoader.Load(data, loadOptions);
         }
 
@@ -88,5 +100,24 @@ namespace TestingDEVDMSApplication.Controllers
             var data = customerService.GetAllTujuanDariPembiayaan();
             return DataSourceLoader.Load(data, loadOptions);
         }
+
+        [HttpPost("CreateCustomer"), ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCustomer([FromBody] CreateOrUpdateCustomerRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Parameter required");
+            }
+
+            var result = await customerService.InsertCustomer(request);
+            if (result == "Success")
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+
+        }
+
     }
 }

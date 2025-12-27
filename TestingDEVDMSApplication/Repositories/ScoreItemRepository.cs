@@ -4,16 +4,16 @@ using TestingDEVDMSApplication.Repositories.Interface;
 
 namespace TestingDEVDMSApplication.Repositories
 {
-    public class EducationRepository : BaseRepository<Education>, IEducationRepository
+    public class ScoreItemRepository : BaseRepository<ScoreItem>, IScoreItemRepository
     {
-        public EducationRepository(DmsDbContext context) : base(context) { }
+        public ScoreItemRepository(DmsDbContext context) : base(context) { }
 
-        public List<Education> GetAllEducation()
+        public List<ScoreItem> GetAllScoreItem()
         {
             return GetAll().ToList();
         }
 
-        public Education GetEducationById(int id)
+        public ScoreItem GetScoreItemById(int id)
         {
             return GetById(id);
         }

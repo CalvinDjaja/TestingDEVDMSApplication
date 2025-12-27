@@ -1,4 +1,5 @@
 ﻿@using DevExtreme.AspNet.Mvc;
+@using TestingDEVDMSApplication.Entity
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @functions
 {
@@ -7,6 +8,8 @@
 		return Xsrf.GetAndStoreTokens(Context).RequestToken!;
 	}
 }
+
+@model Customer;
 
 @{
 	ViewData["Title"] = "Home Page";
@@ -38,12 +41,12 @@
 							<label for="code">
 								Kode
 							</label>
-							<input type="text" class="form-control" id="code" placeholder="[Auto Generated]" disabled>
+							<input type="text" asp-for="Code" class="form-control" id="code" placeholder="[Auto Generated]" disabled>
 						</div>
 
 						<div class="col-md-12" id="rowNama">
 							<label for="name">Nama<span class="text-danger"> *</span></label>
-							<input type="text" class="form-control" id="name" placeholder="Nama" oninput="this.value = this.value.toUpperCase()">
+							<input type="text" asp-for="Name" class="form-control" id="name" placeholder="Nama" oninput="this.value = this.value.toUpperCase()">
 						</div>
 
 						<div class="col-md-12" id="rowTglLahir">
@@ -55,12 +58,13 @@
 														.Placeholder("Tanggal Lahir")
 														.ElementAttr("class", "form-control")
 														.Max(DateTime.Now.AddYears(-17))
+														.Value(Model.BirthDate)
 														)
 						</div>
 
 						<div class="col-md-12" id="rowBirthPlace">
 							<label for="BirthPlace">Tempat Lahir<span class="text-danger"> *</span></label>
-							<input type="text" class="form-control" id="BirthPlace" maxlength="50" required>
+							<input type="text" asp-for="BirthPlace" class="form-control" id="BirthPlace" maxlength="50" required>
 						</div>
 
 						<div class="col-md-12" id="rowGender">
@@ -78,6 +82,7 @@
 														.ID("GenderLookup")
 														.ValueExpr("value")
 														.DisplayExpr("text")
+														.Value(Model.Gender)
 														)
 						</div>
 
@@ -86,14 +91,14 @@
 							@(Html.DevExtreme().CheckBox()
 														.ID("chkIsMarriage")
 														.Text("Active")
-														.Value(true)
+														.Value(Model.IsMarriage)
 														)
 						</div>
 
 						<div class="col-md-4" id="rowManyKids">
 							<label class="control-label" for="ManyKids">Banyak Anak<span class="text-danger"> *</span></label>
 							@(Html.DevExtreme().NumberBox().Format("#").ID("ManyKids")
-														.ElementAttr("class", "form-control").Step(0).Value(0))
+														.ElementAttr("class", "form-control").Step(0).Value(Model.ManyKids))
 						</div>
 
 						<div class="col-md-12" id="rowEducation">
@@ -105,6 +110,7 @@
 														.Key("ID")
 														)
 														.ID("EducationLookup")
+														.Value(Model.EducationID)
 														.DropDownOptions(p => p.Title("Pilih Edukasi").HideOnOutsideClick(true))
 														.DisplayExpr(new JS("displayEdukasiLoookup"))
 														.OnValueChanged("valueChangedEdukasiLoookup")
@@ -128,12 +134,12 @@
 
 						<div class="col-md-12" id="rowPostalCode">
 							<label for="PostalCode">Kode Postal Alamat<span class="text-danger"> *</span></label>
-							<input type="text" class="form-control" id="PostalCode" maxlength="10" required>
+							<input type="text" asp-for="PostalCode" class="form-control" id="PostalCode" maxlength="10" required>
 						</div>
 
 						<div class="col-md-12" id="rowAddress">
 							<label for="address"> Alamat<span class="text-danger"> *</span></label>
-							<textarea id="address" class="form-control rounded-2" name="address" rows="5" cols="55" placeholder="Hanya untuk nama jalan saja" oninput="this.value = this.value.toUpperCase()"></textarea>
+							<textarea id="address" asp-for="Address" class="form-control rounded-2" name="address" rows="5" cols="55" placeholder="Hanya untuk nama jalan saja" oninput="this.value = this.value.toUpperCase()"></textarea>
 						</div>
 
 						<div class="col-md-12" id="rowKepemilikan">
@@ -145,6 +151,7 @@
 														.Key("ID")
 														)
 														.ID("KepemilikanLookup")
+														.Value(Model.OwnershipOfResidenceID)
 														.DropDownOptions(p => p.Title("Pilih Kepemilikan").HideOnOutsideClick(true))
 														.DisplayExpr(new JS("displayKepemilikanLoookup"))
 														.OnValueChanged("valueChangedKepemilikanLoookup")
@@ -161,12 +168,12 @@
 						<div class="col-md-12" id="rowLamaMenempati">
 							<label class="control-label" for="LamaMenempati">Lama Menempati<span class="text-danger"> *</span></label>
 							@(Html.DevExtreme().NumberBox().Format(new JS("function (value) { return value === null ? '' : value + ' Tahun'; }")).ID("LamaMenempati")
-														.ElementAttr("class", "form-control").Step(0).Value(0))
+														.ElementAttr("class", "form-control").Step(0).Value(Model.OccupiedTime))
 						</div>
 
 						<div class="col-md-12" id="rowAddressBerdasarkanBank">
 							<label for="AddressBerdasarkanBank"> Alamat (Berdasarkan Bank)<span class="text-danger"> *</span></label>
-							<textarea id="AddressBerdasarkanBank" class="form-control rounded-2" name="address" rows="5" cols="55" placeholder="Hanya untuk nama jalan saja" oninput="this.value = this.value.toUpperCase()"></textarea>
+							<textarea id="AddressBerdasarkanBank" asp-for="BankAddress" class="form-control rounded-2" name="address" rows="5" cols="55" placeholder="Hanya untuk nama jalan saja" oninput="this.value = this.value.toUpperCase()"></textarea>
 						</div>
 					</div>
 
@@ -185,6 +192,7 @@
 														.Key("ID")
 														)
 														.ID("KategoriPerushaanLookup")
+														.Value(Model.CompanyCategoryID)
 														.DropDownOptions(p => p.Title("Pilih Kategori Perushaan").HideOnOutsideClick(true))
 														.DisplayExpr(new JS("displayKategoriPerushaanLoookup"))
 														.OnValueChanged("valueChangedKategoriPerushaanLoookup")
@@ -207,6 +215,7 @@
 														.Key("ID")
 														)
 														.ID("JabatanLookup")
+														.Value(Model.DepartmentID)
 														.DropDownOptions(p => p.Title("Pilih Jabatan").HideOnOutsideClick(true))
 														.DisplayExpr(new JS("displayJabatanLoookup"))
 														.OnValueChanged("valueChangedJabatanLoookup")
@@ -223,13 +232,13 @@
 						<div class="col-md-12" id="rowLamaBekerja">
 							<label class="control-label" for="LamaBekerja">Lama Bekerja<span class="text-danger"> *</span></label>
 							@(Html.DevExtreme().NumberBox().Format(new JS("function (value) { return value === null ? '' : value + ' Tahun'; }")).ID("LamaBekerja")
-														.ElementAttr("class", "form-control").Step(0).Value(0))
+														.ElementAttr("class", "form-control").Step(0).Value(Model.WorkTime))
 						</div>
 
 						<div class="col-md-12" id="rowPendapatanTHP">
 							<label class="control-label" for="PendapatanTHP">Pendapatan THP<span class="text-danger"> *</span></label>
 							@(Html.DevExtreme().NumberBox().Format("Rp #,##0").ID("PendapatanTHP")
-														.ElementAttr("class", "form-control").Step(0).Value(0))
+														.ElementAttr("class", "form-control").Step(0).Value((double)Model.EarningTHP))
 						</div>
 					</div>
 
@@ -246,7 +255,7 @@
 									@(Html.DevExtreme().CheckBox()
 																			.ID("chkIsTabungan")
 																			.Text("Tabungan")
-																			.Value(false)
+																			.Value(Model.IsTabungan)
 																			)
 								</div>
 
@@ -254,7 +263,7 @@
 									@(Html.DevExtreme().CheckBox()
 																			.ID("chkIsGiro")
 																			.Text("Giro")
-																			.Value(false)
+																			.Value(Model.IsGiro)
 																			)
 								</div>
 
@@ -262,7 +271,7 @@
 									@(Html.DevExtreme().CheckBox()
 																			.ID("chkIsDeposito")
 																			.Text("Deposito")
-																			.Value(false)
+																			.Value(Model.IsDeposito)
 																			)
 								</div>
 							</div>
@@ -272,7 +281,7 @@
 						<div class="col-md-12" id="rowSaldoPerBulannya">
 							<label class="control-label" for="SaldoPerBulannya">Rata-rata saldo per bulannya<span class="text-danger"> *</span></label>
 							@(Html.DevExtreme().NumberBox().Format("Rp #,##0").ID("SaldoPerBulannya")
-														.ElementAttr("class", "form-control").Step(0).Value(0))
+														.ElementAttr("class", "form-control").Step(0).Value((double)Model.SaldoRate))
 						</div>
 
 						<div class="col-md-12" id="rowRecordPembayaranAngsuran">
@@ -284,6 +293,7 @@
 														.Key("ID")
 														)
 														.ID("RecordPembayaranAngsuranLookup")
+														.Value(Model.RecordPaymentTrackID)
 														.DropDownOptions(p => p.Title("Pilih track record pembayaran angsuran").HideOnOutsideClick(true))
 														.DisplayExpr(new JS("displayRecordPembayaranAngsuranLoookup"))
 														.OnValueChanged("valueChangedRecordPembayaranAngsuranLoookup")
@@ -306,6 +316,7 @@
 														.Key("ID")
 														)
 														.ID("TrackDataSLIKLookup")
+														.Value(Model.TrackDataSLIKID)
 														.DropDownOptions(p => p.Title("Pilih Track Data SLIK").HideOnOutsideClick(true))
 														.DisplayExpr(new JS("displayTrackDataSLIKLoookup"))
 														.OnValueChanged("valueChangedTrackDataSLIKLoookup")
@@ -330,6 +341,7 @@
 														.Key("ID")
 														)
 														.ID("PemilikanKartuKreditLookup")
+														.Value(Model.PemilikanKartuKreditID)
 														.DropDownOptions(p => p.Title("Pilih PemilikanKartuKredit").HideOnOutsideClick(true))
 														.DisplayExpr(new JS("displayPemilikanKartuKreditLoookup"))
 														.OnValueChanged("valueChangedPemilikanKartuKreditLoookup")
@@ -353,13 +365,13 @@
 						<div class="col-md-12" id="rowTenor">
 							<label class="control-label" for="Tenor">Tenor<span class="text-danger"> *</span></label>
 							@(Html.DevExtreme().NumberBox().Format(new JS("function (value) { return value === null ? '' : value + ' Tahun'; }")).ID("Tenor")
-														.ElementAttr("class", "form-control").Step(0).Value(0))
+														.ElementAttr("class", "form-control").Step(0).Value(Model.Tenor))
 						</div>
 
 						<div class="col-md-12" id="rowDebtServiceRatio">
 							<label class="control-label" for="DebtServiceRatio">Debt Service Ratio<span class="text-danger"> *</span></label>
 							@(Html.DevExtreme().NumberBox().Format(new JS("function (value) { return value === null ? '' : value + ' %'; }")).ID("DebtServiceRatio")
-														.ElementAttr("class", "form-control").Step(0).Value(0))
+														.ElementAttr("class", "form-control").Step(0).Value(Model.DebtServiceRatio))
 						</div>
 
 					</div>
@@ -383,7 +395,7 @@
 															.ID("radioGroupHasilAppraisal")
 															.Layout(Orientation.Horizontal)
 															.DataSource(HasilAppraisal)
-															.Value(0)
+															.Value(Model.HasilAppraisal)
 															.ValueExpr("id")
 															.DisplayExpr("text")
 															)
@@ -393,7 +405,7 @@
 						<div class="col-md-12" id="rowLuasBangunan">
 							<label class="control-label" for="LuasBangunan">Luas Bangunan<span class="text-danger"> *</span></label>
 							@(Html.DevExtreme().NumberBox().Format(new JS("function (value) { return value === null ? '' : value + ' M2'; }")).ID("LuasBangunan")
-														.ElementAttr("class", "form-control").Step(0).Value(0))
+														.ElementAttr("class", "form-control").Step(0).Value(Model.LuasBangun))
 						</div>
 
 						<div class="col-md-12" id="rowTujuanPembiayaan">
@@ -405,6 +417,7 @@
 														.Key("ID")
 														)
 														.ID("TujuanDariPembiayaanLookup")
+														.Value(Model.TujuanDariPembiayaanID)
 														.DropDownOptions(p => p.Title("Pilih Tujuan Dari Pembiayaan").HideOnOutsideClick(true))
 														.DisplayExpr(new JS("displayTujuanDariPembiayaanLoookup"))
 														.OnValueChanged("valueChangedTujuanDariPembiayaanLoookup")
@@ -421,7 +434,7 @@
 						<div class="col-md-12" id="rowLTV">
 							<label class="control-label" for="LTV">LTV<span class="text-danger"> *</span></label>
 							@(Html.DevExtreme().NumberBox().Format(new JS("function (value) { return value === null ? '' : value + ' %'; }")).ID("LTV")
-														.ElementAttr("class", "form-control").Step(0).Value(0))
+														.ElementAttr("class", "form-control").Step(0).Value(Model.LTV))
 						</div>
 
 					</div>
@@ -569,7 +582,6 @@
 			// dt_totalDisc = $('#txtTotalDisc').dxNumberBox("instance").option("value");
 
 			var datapost = {
-				Code: $('#code').val(),
 				Name: $('#name').val(),
 				BirthDate: dt_BirthDate,
 				BirthPlace: $('#BirthPlace').val(),
@@ -607,7 +619,7 @@
 			$.ajax({
 				type: 'POST',
 				dataType: 'JSON',
-				url: '/Customer/CreateCustomer',
+				url: '/Customer/UpdateCustomer',
 				headers: { "RequestVerificationToken": "@GetAntiXsrfRequestToken()" },
 				data: JSON.stringify(datapost),
 				contentType: 'application/json; charset=utf-8',

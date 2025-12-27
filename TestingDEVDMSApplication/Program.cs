@@ -24,6 +24,10 @@ builder.Services.AddScoped<ITrackDataSLIKRepository, TrackDataSLIKRepository>();
 builder.Services.AddScoped<IPemilikanKartuKreditRepository, PemilikanKartuKreditRepository>();
 builder.Services.AddScoped<ITujuanDariPembiayaanRepository, TujuanDariPembiayaanRepository>();
 
+builder.Services.AddScoped<IScoreGroupRepository, ScoreGroupRepository>();
+builder.Services.AddScoped<IScoreGroupItemRepository, ScoreGroupItemRepository>();
+builder.Services.AddScoped<IScoreItemRepository, ScoreItemRepository>();
+
 // Services
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 

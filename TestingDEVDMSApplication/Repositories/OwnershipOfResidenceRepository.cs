@@ -13,7 +13,7 @@ namespace TestingDEVDMSApplication.Repositories
             return GetAll().ToList();
         }
 
-        public OwnershipOfResidence GetById(int id)
+        public OwnershipOfResidence GetOwnershipOfResidenceById(int id)
         {
             return GetById(id);
         }
