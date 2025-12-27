@@ -1,294 +1,501 @@
 ﻿@using DevExtreme.AspNet.Mvc;
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
 <partial name="_Header.cshtml" />
 
 <section class="content" style="margin-top:-70px; position:relative; flex-direction: column;">
-    <div class="container-fluid pb-1">
-        <div class="card card-danger card-outline card-outline-tabss">
-            <div class="card-header">
-                <h3 class="card-title">Form</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                </div>
-            </div>
+	<div class="container-fluid pb-1">
+		<div class="card card-danger card-outline card-outline-tabss">
+			<div class="card-header">
+				<h3 class="card-title">Form</h3>
+				<div class="card-tools">
+					<button type="button" class="btn btn-tool" data-card-widget="collapse">
+						<i class="fas fa-minus"></i>
+					</button>
+				</div>
+			</div>
 
-            <div class="card-body mb-3">
-                <div class="mx-3 p-1">
+			<div class="card-body mb-3">
+				<div class="mx-3 p-1">
 
-                    <div class="form-row">
+					<div class="form-row">
 
-                        <div class="form-group col-md-12">
-                            <label for="code">
-                                Kode
-                            </label>
-                            <input type="text" class="form-control" id="code" placeholder="[Auto Generated]" disabled>
-                        </div>
+						<h3 class="card-title">Indentitas</h3>
+						<hr>
 
-                        <div class="form-group col-md-6" id="rowNama">
-                            <label for="name">Nama<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="name" placeholder="Nama" oninput="this.value = this.value.toUpperCase()">
-                        </div>
+						<div class="form-group col-md-12">
+							<label for="code">
+								Kode
+							</label>
+							<input type="text" class="form-control" id="code" placeholder="[Auto Generated]" disabled>
+						</div>
 
-                        <div class="form-group col-md-6" id="rowEmail">
-                            <label for="email">Email<span class="text-danger"> *</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="Email" maxlength="50" required>
-                        </div>
+						<div class="form-group col-md-12" id="rowNama">
+							<label for="name">Nama<span class="text-danger"> *</span></label>
+							<input type="text" class="form-control" id="name" placeholder="Nama" oninput="this.value = this.value.toUpperCase()">
+						</div>
 
-                        <div class="form-group col-md-6" id="rowTglLahir">
-                            <label for="txtBirthdate">Tanggal Lahir<span class="text-danger"> *</span></label>
-                            @(Html.DevExtreme().DateBox()
-                                .Type(DateBoxType.Date)
-                                .DisplayFormat("dd MMMM yyyy")
-                                .ID("txtBirthdate")
-                                .Placeholder("Tanggal Lahir")
-                                .ElementAttr("class", "form-control")
-                                .Max(DateTime.Now.AddYears(-17))
-                                )
-                        </div>
-                        <div class="form-group col-md-6" id="rowGender">
-                            <label for="GenderLookup">Gender<span class="text-danger"> *</span></label>
-                            @{
-                                var gender = new[] {
-                            new { value = "L", text = "Laki - Laki" },
-                            new { value = "P", text = "Perempuan" }
-                                                };
-                            }
-                            @(Html.DevExtreme().Lookup()
-                                .DataSource(gender)
-                                .Disabled(new JS("DisGender"))
-                                .DropDownOptions(p => p.Title("Pilih Gender").HideOnOutsideClick(true))
-                                .Placeholder("Gender")
-                                .ID("GenderLookup")
-                                .ValueExpr("value")
-                                .DisplayExpr("text")
-                                )
-                        </div>
+						<div class="form-group col-md-12" id="rowTglLahir">
+							<label for="txtBirthdate">Tanggal Lahir<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().DateBox()
+														.Type(DateBoxType.Date)
+														.DisplayFormat("dd MMMM yyyy")
+														.ID("txtBirthdate")
+														.Placeholder("Tanggal Lahir")
+														.ElementAttr("class", "form-control")
+														.Max(DateTime.Now.AddYears(-17))
+														)
+						</div>
 
-                        <div class="form-group col-md-6" id="rowCOA" hidden>
-                            <label class="control-label" for="arcoa">Ap COA<span class="text-danger"> *</span></label>
-                            @(Html.DevExtreme().Lookup()
-                                .DataSource(d => d.Mvc()
-                                .Controller("Customer")
-                                .LoadAction("GetCOALookup")
-                                .Key("ID")
-                                )
-                                .DropDownOptions(p => p.Title("Pilih COA").HideOnOutsideClick(true))
-                                .Placeholder("Kode : COA")
-                                .DisplayExpr(new JS("dataDisplay4"))
-                                .OnValueChanged("valueChanged4")
-                                .SearchExpr(new[] { "Code", "Name" })
-                                .ID("COALookup")
-                                .Disabled(new JS("DisCOA"))
-                                )
-                        </div>
+						<div class="form-group col-md-12" id="rowBirthPlace">
+							<label for="BirthPlace">Tempat Lahir<span class="text-danger"> *</span></label>
+							<input type="text" class="form-control" id="BirthPlace" maxlength="50" required>
+						</div>
 
-                        <div class="form-group col-md-6" id="rowCP">
-                            <label for="cp">Contact Person<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="cp" placeholder="Contact Person" maxlength="50" oninput="this.value = this.value.toUpperCase()" required>
-                        </div>
+						<div class="form-group col-md-12" id="rowGender">
+							<label for="GenderLookup">Gender<span class="text-danger"> *</span></label>
+							@{
+								var gender = new[] {
+							new { value = "L", text = "Laki - Laki" },
+							new { value = "P", text = "Perempuan" }
+							};
+							}
+							@(Html.DevExtreme().Lookup()
+														.DataSource(gender)
+														.Disabled(new JS("DisGender"))
+														.DropDownOptions(p => p.Title("Pilih Gender").HideOnOutsideClick(true))
+														.Placeholder("Gender")
+														.ID("GenderLookup")
+														.ValueExpr("value")
+														.DisplayExpr("text")
+														)
+						</div>
 
-                        <div class="form-group col-md-6" id="rowHP">
-                            <label for="nohp">No HP<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control format-input-hp" name="nohp" id="nohp" placeholder="No Handphone" maxlength="15" required>
-                        </div>
+						<div class="form-group col-md-12" id="rowIsMarriage">
+							<label class="control-label" for="chkIsMarriage">Menikah ?<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().CheckBox()
+														.ID("chkIsMarriage")
+														.Text("Active")
+														.Value(true)
+														)
+						</div>
 
-                        <div class="form-group col-md-6" id="rowKTP">
-                            <label for="idcard" id="KTPLabel">No KTP<span class="text-danger"> *</span></label>
-                            <label for="idcard" id="KTPNIBLabel" style="display:none;">No KTP / NIB<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control format-input-number" maxlength="16" id="idcard" placeholder="ID Card">
-                        </div>
+						<div class="form-group col-md-12" id="rowManyKids">
+							<label class="control-label" for="ManyKids">Banyak Anak<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().NumberBox().Format("#").ID("ManyKids")
+														.ElementAttr("class", "form-control").Step(0).Value(0))
+						</div>
 
-                        <div class="form-group col-md-6" id="rowKelTagih" hidden>
-                            <label class="control-label" for="customerGroup"> Kelompok Tagih</label>
-                            @(Html.DevExtreme().Lookup()
-                                .DataSource(d => d.Mvc()
-                                .Controller("CustomerGroup")
-                                .LoadAction("GetQuery")
-                                .Key("ID")
-                                )
-                                .DropDownOptions(p => p.Title("Pilih Kelompok Tagih").HideOnOutsideClick(true))
-                                .Placeholder("Kelompok Tagih - Top SHW ")
-                                .DisplayExpr(new JS("dataDisplay3"))
-                                .OnValueChanged("valueChanged3")
-                                .SearchExpr(new[] { "Name", "TopSHW" })
-                                .ID("CusGroupLookup")
-                                .Disabled(new JS("DisCusGroup"))
-                                )
-                        </div>
+						<div class="form-group col-md-12" id="rowEducation">
+							<label for="EducationLookup">Edukasi<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("Customer")
+														.LoadAction("GetEducation")
+														.Key("ID")
+														)
+														.ID("EducationLookup")
+														.DropDownOptions(p => p.Title("Pilih Edukasi").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayEdukasiLoookup"))
+														.OnValueChanged("valueChangedEdukasiLoookup")
+														.SearchExpr(new[] { "Name" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- Name %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
 
-                        <div class="form-group col-md-6" id="rowNPWP">
-                            <label for="npwp">NPWP<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control format-npwp-simple" name="npwp" id="npwp" placeholder="NPWP" required>
-                        </div>
+					</div>
 
-                        <div class="form-group col-md-6" id="rowPekerjaan">
-                            <label for="txtPekerjaan">Pekerjaan</label>
-                            <input type="text" class="form-control" id="txtPekerjaan" placeholder="Pekerjaan">
-                        </div>
+					<br />
+					<div class="form-row">
 
-                        <div class="form-group col-md-6" id="rowJthTemp">
-                            <label for="JatuhTempo">Jatuh Tempo<span class="text-danger"> *</span></label>
-                            <input type="number" class="form-control" id="JatuhTempo" placeholder="Enter Jatuh Tempo" min="0" value="0" required>
-                        </div>
+						<h3 class="card-title">Indentitas Alamat</h3>
+						<hr>
 
-                        <div class="form-group col-md-6" id="rowKatagoriGSO">
-                            <label for="KategoriGSOLookup">Kategori GSO<span class="text-danger"> *</span></label>
-                            @(Html.DevExtreme().Lookup()
-                                .DataSource(d => d.Mvc()
-                                .Controller("Customer")
-                                .LoadAction("GetKatagoriGSOLookup")
-                                .Key("ID")
-                                )
-                                .DropDownOptions(p => p.Title("Pilih Kategori GSO").HideOnOutsideClick(true))
-                                .Placeholder("Kategori GSO")
-                                .DisplayExpr(new JS("dataDisplayKategoriGSO"))
-                                .OnValueChanged("valueChangedKategoriGSO")
-                                .SearchExpr(new[] { "Name" })
-                                .ID("KategoriGSOLookup")
-                                .Disabled(new JS("DisCusKategoriGSO"))
-                                )
-                        </div>
+						<div class="form-group col-md-12" id="rowPostalCode">
+							<label for="PostalCode">Kode Postal Alamat<span class="text-danger"> *</span></label>
+							<input type="text" class="form-control" id="PostalCode" maxlength="10" required>
+						</div>
 
-                        <div class="form-group col-md-6" id="rowADMS">
-                            <label for="txtADMS">Kode ADMS</label>
-                            <input type="text" class="form-control" id="txtADMS" placeholder="Kode ADMS">
-                        </div>
+						<div class="form-group col-md-12" id="rowAddress">
+							<label for="address"> Alamat<span class="text-danger"> *</span></label>
+							<textarea id="address" class="form-control rounded-2" name="address" rows="5" cols="55" placeholder="Hanya untuk nama jalan saja" oninput="this.value = this.value.toUpperCase()"></textarea>
+						</div>
 
-                    </div>
+						<div class="form-group col-md-12" id="rowKepemilikan">
+							<label for="KepemilikanLookup"> Kepemilikan<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("Customer")
+														.LoadAction("GetKepemilikan")
+														.Key("ID")
+														)
+														.ID("KepemilikanLookup")
+														.DropDownOptions(p => p.Title("Pilih Kepemilikan").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayKepemilikanLoookup"))
+														.OnValueChanged("valueChangedKepemilikanLoookup")
+														.SearchExpr(new[] { "Name" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- Name %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
 
-                    <div class="form-group col-md-6">
-                        <div class="form-group col-md-6" id="rowGSO" style="">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="IsGSO" />
-                                <label class="custom-control-label" for="IsGSO">Is GSO</label>
-                            </div>
-                        </div>
+						<div class="form-group col-md-12" id="rowLamaMenempati">
+							<label class="control-label" for="LamaMenempati">Lama Menempati<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().NumberBox().Format("#").ID("LamaMenempati")
+														.ElementAttr("class", "form-control").Step(0).Value(0))
+						</div>
 
-                        <div class="form-group col-md-6" id="rowIsFleet">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="IsFleet">
-                                <label class="custom-control-label" for="IsFleet">Is Fleet</label>
-                            </div>
-                        </div>
+						<div class="form-group col-md-12" id="rowAddressBerdasarkanBank">
+							<label for="AddressBerdasarkanBank"> Alamat (Berdasarkan Bank)<span class="text-danger"> *</span></label>
+							<textarea id="AddressBerdasarkanBank" class="form-control rounded-2" name="address" rows="5" cols="55" placeholder="Hanya untuk nama jalan saja" oninput="this.value = this.value.toUpperCase()"></textarea>
+						</div>
+					</div>
 
-                        <div class="form-group col-md-6" id="rowShowroom" style="">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="IsShowroom">
-                                <label class="custom-control-label" for="IsShowroom">Is Showroom</label>
-                            </div>
-                        </div>
+					<br />
+					<div class="form-row">
 
-                        <div class="form-group col-md-6" id="rowAktif">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="active" checked>
-                                <label class="custom-control-label" for="active">Is Active</label>
-                            </div>
-                        </div>
+						<h3 class="card-title">Indentitas Pekerjaan</h3>
+						<hr>
 
-                    </div>
-                </div>
+						<div class="form-group col-md-12" id="rowKategoriPerushaan">
+							<label for="KategoriPerushaanLookup">Kategori Perushaan<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("Customer")
+														.LoadAction("GetKategoriPerushaan")
+														.Key("ID")
+														)
+														.ID("KategoriPerushaanLookup")
+														.DropDownOptions(p => p.Title("Pilih Kategori Perushaan").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayKategoriPerushaanLoookup"))
+														.OnValueChanged("valueChangedKategoriPerushaanLoookup")
+														.SearchExpr(new[] { "Name" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- Name %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
 
+						<div class="form-group col-md-12" id="rowJabatan">
+							<label for="JabatanLookup">Jabatan<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("Customer")
+														.LoadAction("GetJabatan")
+														.Key("ID")
+														)
+														.ID("JabatanLookup")
+														.DropDownOptions(p => p.Title("Pilih Jabatan").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayJabatanLoookup"))
+														.OnValueChanged("valueChangedJabatanLoookup")
+														.SearchExpr(new[] { "Name" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- Name %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
 
-                <div>
-                    <h5 class="mt-2">Detail - Alamat</h5>
-                    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                    <div class="row bg-gray-light rounded">
-                        <div class="form-group col-md-6 mt-2">
-                            <label class="control-label" for="addrType"> Jenis<span class="text-danger"> *</span></label>
-                            @(Html.DevExtreme().Lookup()
-                                .DataSource(d => d.Mvc()
-                                .Controller("Customer")
-                                .LoadAction("AddressTypeLookup")
-                                .Key("ID")
-                                )
-                                .DropDownOptions(p => p.Title("Jenis Alamat").HideOnOutsideClick(true))
-                                .Placeholder("Cari Jenis Alamat")
-                                .DisplayExpr(new JS("dataDisplayAddType"))
-                                .OnValueChanged("valueChangedAddType")
-                                .SearchExpr(new[] { "Name" })
-                                .ID("val_addressType")
-                                .Disabled(new JS("DisAddrType"))
-                                )
-                        </div>
+						<div class="form-group col-md-12" id="rowLamaBekerja">
+							<label class="control-label" for="LamaBekerja">Lama Bekerja<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().NumberBox().Format("#").ID("LamaBekerja")
+														.ElementAttr("class", "form-control").Step(0).Value(0))
+						</div>
 
-                        <div class="form-group col-md-6 mt-2">
-                            <label class="control-label" for="postalCode"> Kode Pos<span class="text-danger"> *</span></label>
-                            @(Html.DevExtreme().Lookup()
-                                .DataSource(d => d.Mvc()
-                                .Controller("Customer")
-                                .LoadAction("PostalCodeLookup")
-                                .Key("ID")
-                                )
-                                .DropDownOptions(p => p.Title("Kelurahan, Kecamatan - Kode Pos").HideOnOutsideClick(true))
-                                .Placeholder("Cari Kode Pos")
-                                .DisplayExpr(new JS("dataDisplayPos"))
-                                .OnValueChanged("valueChangedPos")
-                                .SearchExpr(new[] { "Kelurahan", "Kecamatan", "PostalCode" })
-                                .ID("val_postalCode")
-                                .Disabled(new JS("DisPostal"))
-                                )
-                        </div>
+						<div class="form-group col-md-12" id="rowPendapatanTHP">
+							<label class="control-label" for="PendapatanTHP">Pendapatan THP<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().NumberBox().Format("#").ID("PendapatanTHP")
+														.ElementAttr("class", "form-control").Step(0).Value(0))
+						</div>
+					</div>
 
-                        <div class="form-group col-md-6">
-                            <label for="address"> Alamat<span class="text-danger"> *</span></label>
-                            <textarea id="address" class="form-control rounded-2" name="address" rows="5" cols="55" placeholder="Hanya untuk nama jalan saja" oninput="this.value = this.value.toUpperCase()"></textarea>
-                        </div>
+					<br />
+					<div class="form-row">
 
-                        <div class="form-group col-md-6">
-                            <label for="phone">Telepon</label>
-                            <input type="text" class="form-control format-input-numberphone" name="phone" id="phone" placeholder="Telepon" maxlength="15" >
+						<h3 class="card-title">Indentitas Bank</h3>
+						<hr>
 
-                            <div class="row mt-3">
-                                <div class="form-group col-md-6">
-                                    <label for="textRt">RT<span class="text-danger"> *</span></label>
-                                    <input type="text" class="form-control format-input-number" name="textRt" id="textRt" placeholder="XXX" maxlength="3">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="textRw">RW<span class="text-danger"> *</span></label>
-                                    <input type="text" class="form-control format-input-number" name="textRw" id="textRw" placeholder="XXX" maxlength="3">
-                                </div>
-                            </div>
+						<div class="form-group col-md-12" id="rowRekeningBank">
+							<label for="RekeningBank">Rekening Bank<span class="text-danger"> *</span></label>
+							<input type="text" class="form-control" id="RekeningBank" maxlength="10" required>
+						</div>
 
-                        </div>
+						<div class="form-group col-md-12" id="rowSaldoPerBulannya">
+							<label class="control-label" for="SaldoPerBulannya">Rata-rata saldo per bulannya<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().NumberBox().Format("#").ID("SaldoPerBulannya")
+														.ElementAttr("class", "form-control").Step(0).Value(0))
+						</div>
 
-                        <div class="form-group col-md-6">
-                            <label for="NITKU">NITKU</label>
-                            <input type="text" class="form-control" name="NITKU" id="NITKU" placeholder="XXXXXX">
+						<div class="form-group col-md-12" id="rowRecordPembayaranAngsuran">
+							<label for="RecordPembayaranAngsuranLookup">Track record pembayaran angsuran<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("Customer")
+														.LoadAction("GetRecordPembayaranAngsuran")
+														.Key("ID")
+														)
+														.ID("RecordPembayaranAngsuranLookup")
+														.DropDownOptions(p => p.Title("Pilih track record pembayaran angsuran").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayRecordPembayaranAngsuranLoookup"))
+														.OnValueChanged("valueChangedRecordPembayaranAngsuranLoookup")
+														.SearchExpr(new[] { "Name" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- Name %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
 
-                        </div>
+						<div class="form-group col-md-12" id="rowTrackDataSLIK">
+							<label for="TrackDataSLIKLookup">Track Data SLIK<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("Customer")
+														.LoadAction("GetTrackDataSLIK")
+														.Key("ID")
+														)
+														.ID("TrackDataSLIKLookup")
+														.DropDownOptions(p => p.Title("Pilih Track Data SLIK").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayTrackDataSLIKLoookup"))
+														.OnValueChanged("valueChangedTrackDataSLIKLoookup")
+														.SearchExpr(new[] { "Name" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- Name %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
 
-                        <div class="form-group col-md-10">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="default" >
-                                <label for="default" class="custom-control-label">Default</label>
-                            </div>
-                        </div>
+						
 
-                        <input type="text" class="form-control" id="detail_row" hidden>
+						<div class="form-group col-md-12" id="rowRekeningBank">
+							<label for="PemilikanKartuKreditLookup">Kepemilikan Kartu Kredit<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("Customer")
+														.LoadAction("GetPemilikanKartuKredit")
+														.Key("ID")
+														)
+														.ID("PemilikanKartuKreditLookup")
+														.DropDownOptions(p => p.Title("Pilih PemilikanKartuKredit").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayPemilikanKartuKreditLoookup"))
+														.OnValueChanged("valueChangedPemilikanKartuKreditLoookup")
+														.SearchExpr(new[] { "Name" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- Name %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
+					</div>
 
-                        <div class="col-md-10">
-                            <div class="pb-3 ml-1">
-                                <button class="btn btn-primary color-1" id="btnAddDetail">Tambah Detail</button>
-                                <button class="btn btn-warning" id="btnSaveEditDetail">Confirm Edit Detail</button>
-                                <button class="btn btn-danger" id="btnCancelEdit">Cancel Edit </button>
-                            </div>
-                        </div>
+					<br />
+					<div class="form-row">
 
-                    </div>
-                </div>
+						<h3 class="card-title">Indentitas Hutang</h3>
+						<hr>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <div class="ml-2 mb-2 mt-3">
-                        <button type="submit" id="btnSave" class="btn btn-primary color-1">Simpan</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						<div class="form-group col-md-12" id="rowTenor">
+							<label class="control-label" for="Tenor">Tenor<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().NumberBox().Format("#").ID("Tenor")
+														.ElementAttr("class", "form-control").Step(0).Value(0))
+						</div>
+
+						<div class="form-group col-md-12" id="rowDebtServiceRatio">
+							<label class="control-label" for="DebtServiceRatio">Debt Service Ratio<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().NumberBox().Format("#").ID("DebtServiceRatio")
+														.ElementAttr("class", "form-control").Step(0).Value(0))
+						</div>
+
+					</div>
+
+					<br />
+					<div class="form-row">
+
+						<h3 class="card-title">Indentitas Rumah</h3>
+						<hr>
+
+						<div class="form-group col-md-12" id="rowHasilAppraisal">
+							<label for="HasilAppraisal">Hasil Appraisal<span class="text-danger"> *</span></label>
+							<input type="text" class="form-control" id="HasilAppraisal" maxlength="10" required>
+						</div>
+
+						<div class="form-group col-md-12" id="rowLuasBangunan">
+							<label class="control-label" for="LuasBangunan">Luas Bangunan<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().NumberBox().Format(new JS("function (value) { return value === null ? '' : value + ' M2'; }")).ID("LuasBangunan")
+														.ElementAttr("class", "form-control").Step(0).Value(0))
+						</div>
+
+						<div class="form-group col-md-12" id="rowTujuanPembiayaan">
+							<label for="TujuanPembiayaan">Tujuan dari Pembiayaan<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("Customer")
+														.LoadAction("GetTujuanDariPembiayaan")
+														.Key("ID")
+														)
+														.ID("TujuanDariPembiayaanLookup")
+														.DropDownOptions(p => p.Title("Pilih Tujuan Dari Pembiayaan").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayTujuanDariPembiayaanLoookup"))
+														.OnValueChanged("valueChangedTujuanDariPembiayaanLoookup")
+														.SearchExpr(new[] { "Name" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- Name %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
+
+						<div class="form-group col-md-12" id="rowLTV">
+							<label class="control-label" for="LTV">LTV<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().NumberBox().Format("# %").ID("LTV")
+														.ElementAttr("class", "form-control").Step(0).Value(0))
+						</div>
+
+					</div>
+				</div>
+
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<div class="ml-2 mb-2 mt-3">
+						<button type="submit" id="btnSave" class="btn btn-primary color-1">Simpan</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
+@section Scripts {
+	<script type="text/javascript" asp-append-version="true">
+
+		var DisGender = false;
+		var dt_Edukasi = 0;
+		var dt_Kepemilikan = 0;
+		var dt_KategoriPerushaan = 0;
+		var dt_Jabatan = 0;
+		var dt_RecordPembayaranAngsuran = 0;
+		var dt_TrackDataSLIK = 0;
+		var dt_PemilikanKartuKredit = 0;
+		var dt_TujuanDariPembiayaan = 0;
+
+		function displayEdukasiLoookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.Name;
+		}
+
+		function valueChangedEdukasiLoookup(e) {
+			dt_Edukasi = e.component.option("selectedItem").ID;
+			return dt_Edukasi;
+		}
+
+		function displayKepemilikanLoookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.Name;
+		}
+
+		function valueChangedKepemilikanLoookup(e) {
+			dt_Kepemilikan = e.component.option("selectedItem").ID;
+			return dt_Kepemilikan;
+		}
+
+		function displayKategoriPerushaanLoookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.Name;
+		}
+
+		function valueChangedKategoriPerushaanLoookup(e) {
+			dt_KategoriPerushaan = e.component.option("selectedItem").ID;
+			return dt_KategoriPerushaan;
+		}
+
+		function displayJabatanLoookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.Name;
+		}
+
+		function valueChangedJabatanLoookup(e) {
+			dt_Jabatan = e.component.option("selectedItem").ID;
+			return dt_Jabatan;
+		}
+
+		function displayRecordPembayaranAngsuranLoookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.Name;
+		}
+
+		function valueChangedRecordPembayaranAngsuranLoookup(e) {
+			dt_RecordPembayaranAngsuran = e.component.option("selectedItem").ID;
+			return dt_RecordPembayaranAngsuran;
+		}
+
+		function displayTrackDataSLIKLoookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.Name;
+		}
+
+		function valueChangedTrackDataSLIKLoookup(e) {
+			dt_TrackDataSLIK = e.component.option("selectedItem").ID;
+			return dt_TrackDataSLIK;
+		}
+
+		function displayPemilikanKartuKreditLoookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.Name;
+		}
+
+		function valueChangedPemilikanKartuKreditLoookup(e) {
+			dt_PemilikanKartuKredit = e.component.option("selectedItem").ID;
+			return dt_PemilikanKartuKredit;
+		}
+
+		function displayTujuanDariPembiayaanLoookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.Name;
+		}
+
+		function valueChangedTujuanDariPembiayaanLoookup(e) {
+			dt_TujuanDariPembiayaan = e.component.option("selectedItem").ID;
+			return dt_TujuanDariPembiayaan;
+		}
+	</script>
+}

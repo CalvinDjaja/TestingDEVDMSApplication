@@ -7,7 +7,7 @@ namespace TestingDEVDMSApplication.Models
     {
         public int ID { get; set; }
         public string CustomerCode { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
+        public string CustomerName { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
         public string BirthPlace { get; set; } = string.Empty;
         public string Gender { get; set; } = string.Empty;

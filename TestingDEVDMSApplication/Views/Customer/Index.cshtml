@@ -1,4 +1,5 @@
 ﻿@using DevExtreme.AspNet.Mvc;
+@using TestingDEVDMSApplication.Entity;
 
 @{
     ViewData["Title"] = "Dashboard - Pelanggan";
@@ -11,7 +12,7 @@
     <div class="text-center">
         <h1 class="display-4">Pelanggan</h1>
 
-        @(Html.DevExtreme().DataGrid<CustomerVT>()
+        @(Html.DevExtreme().DataGrid<Customer>()
             .ID("CustomerGrid")
             .ShowBorders(true)
             .DataSource(d => d.Mvc()
@@ -28,7 +29,7 @@
                 {
                     b.Add().Icon("edit").OnClick("editrow");
                 });
-                c.AddFor(a => a.CustomerCode).Caption("Nama").MinWidth(300);
+                c.AddFor(a => a.Code).Caption("Code").MinWidth(300);
                 c.AddFor(a => a.Name).Caption("Nama").MinWidth(300);
                 c.AddFor(a => a.BirthDate).Caption("Tanggal Lahir").Format("dd MMMM yyyy").Width("auto");
             })
@@ -71,7 +72,7 @@
     });
 
     function editrow(e) {
-        location.href = "/Customer/Update/" + e.row.data.CustomerID;
+        location.href = "/Customer/Update/" + e.row.data.ID;
     }
 
     function statusStyle(e) {
