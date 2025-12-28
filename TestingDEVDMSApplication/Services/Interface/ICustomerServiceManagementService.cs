@@ -19,5 +19,6 @@ namespace TestingDEVDMSApplication.Services.Interface
         IList<PemilikanKartuKredit> GetAllPemilikanKartuKredit();
         IList<TujuanDariPembiayaan> GetAllTujuanDariPembiayaan();
         Task<string> InsertCustomer(CreateOrUpdateCustomerRequest request);
+        Task<string> UpdateCustomer(CreateOrUpdateCustomerRequest request);
     }
 }

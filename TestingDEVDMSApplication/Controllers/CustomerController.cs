@@ -119,5 +119,24 @@ namespace TestingDEVDMSApplication.Controllers
 
         }
 
+        [HttpPost("UpdateCustomer"), ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateCustomer([FromBody] CreateOrUpdateCustomerRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Parameter required");
+            }
+
+            var result = await customerService.UpdateCustomer(request);
+            if (result == "Success")
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+
+        }
+
     }
+
 }

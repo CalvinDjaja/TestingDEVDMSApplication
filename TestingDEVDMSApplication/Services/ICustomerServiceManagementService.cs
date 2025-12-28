@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
 using TestingDEVDMSApplication.Context;
 using TestingDEVDMSApplication.Entity;
 using TestingDEVDMSApplication.Models;
@@ -159,9 +160,23 @@ namespace TestingDEVDMSApplication.Services.Interface
 
             try
             {
+                var lastCode = customerRepository
+                    .GetAllCustomer()
+                    .Where(x => x.Code.StartsWith("C"))
+                    .OrderByDescending(x => x.Code)
+                    .Select(x => x.Code)
+                    .FirstOrDefault();
+
+                int nextNumber = 1;
+
+                if (!string.IsNullOrEmpty(lastCode))
+                {
+                    nextNumber = int.Parse(lastCode.Substring(1)) + 1;
+                }
+
                 var addCustomer = new Customer()
                 {
-                    Code = request.Code,
+                    Code = "C" + nextNumber.ToString("000"),
                     Name = request.Name,
                     BirthDate = request.BirthDate,
                     BirthPlace = request.BirthPlace,
@@ -195,6 +210,60 @@ namespace TestingDEVDMSApplication.Services.Interface
                 };
 
                 var add = customerRepository.Add(addCustomer);
+                rs = "Success";
+
+                await context.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+            }
+            catch (Exception Ex)
+            {
+                await transaction.RollbackAsync();
+                rs = Ex.Message;
+            }
+
+            return rs;
+        }
+
+        public async Task<string> UpdateCustomer(CreateOrUpdateCustomerRequest request)
+        {
+            string rs = "";
+            await using var transaction = await context.Database.BeginTransactionAsync();
+
+            try
+            {
+                var updateCustomer = customerRepository.GetCustomerById(request.ID);
+                updateCustomer.Name = request.Name;
+                updateCustomer.BirthDate = request.BirthDate;
+                updateCustomer.BirthPlace = request.BirthPlace;
+                updateCustomer.Gender = request.Gender;
+                updateCustomer.PostalCode = request.PostalCode;
+                updateCustomer.Address = request.Address;
+                updateCustomer.IsMarriage = request.IsMarriage;
+                updateCustomer.ManyKids = request.ManyKids;
+                updateCustomer.EducationID = request.EducationID;
+                updateCustomer.BankAddress = request.BankAddress;
+                updateCustomer.OwnershipOfResidenceID = request.OwnershipOfResidenceID;
+                updateCustomer.OccupiedTime = request.OccupiedTime;
+                updateCustomer.CompanyCategoryID = request.CompanyCategoryID;
+                updateCustomer.DepartmentID = request.DepartmentID;
+                updateCustomer.WorkTime = request.WorkTime;
+                updateCustomer.EarningTHP = request.EarningTHP;
+                updateCustomer.IsTabungan = request.IsTabungan;
+                updateCustomer.IsGiro = request.IsGiro;
+                updateCustomer.IsDeposito = request.IsDeposito;
+                updateCustomer.SaldoRate = request.SaldoRate;
+                updateCustomer.RecordPaymentTrackID = request.RecordPaymentTrackID;
+                updateCustomer.TrackDataSLIKID = request.TrackDataSLIKID;
+                updateCustomer.PemilikanKartuKreditID = request.PemilikanKartuKreditID;
+                updateCustomer.Tenor = request.Tenor;
+                updateCustomer.DebtServiceRatio = request.DebtServiceRatio;
+                updateCustomer.HasilAppraisal = request.HasilAppraisal;
+                updateCustomer.LuasBangun = request.LuasBangun;
+                updateCustomer.TujuanDariPembiayaanID = request.TujuanDariPembiayaanID;
+                updateCustomer.LTV = request.LTV;
+
+                customerRepository.Update(updateCustomer);
                 rs = "Success";
 
                 await context.SaveChangesAsync();

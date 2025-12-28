@@ -453,14 +453,14 @@
 @section Scripts {
 	<script type="text/javascript" asp-append-version="true">
 
-		var dt_Edukasi = 0;
-		var dt_Kepemilikan = 0;
-		var dt_KategoriPerushaan = 0;
-		var dt_Jabatan = 0;
-		var dt_RecordPembayaranAngsuran = 0;
-		var dt_TrackDataSLIK = 0;
-		var dt_PemilikanKartuKredit = 0;
-		var dt_TujuanDariPembiayaan = 0;
+		var dt_Edukasi = @Model.EducationID;
+		var dt_Kepemilikan = @Model.OwnershipOfResidenceID;
+		var dt_KategoriPerushaan = @Model.CompanyCategoryID;
+		var dt_Jabatan = @Model.DepartmentID;
+		var dt_RecordPembayaranAngsuran = @Model.RecordPaymentTrackID;
+		var dt_TrackDataSLIK = @Model.TrackDataSLIKID;
+		var dt_PemilikanKartuKredit = @Model.PemilikanKartuKreditID;
+		var dt_TujuanDariPembiayaan = @Model.TujuanDariPembiayaanID;
 
 		function displayEdukasiLoookup(item) {
 			if (!item) {
@@ -582,6 +582,7 @@
 			// dt_totalDisc = $('#txtTotalDisc').dxNumberBox("instance").option("value");
 
 			var datapost = {
+				ID: @Model.ID
 				Name: $('#name').val(),
 				BirthDate: dt_BirthDate,
 				BirthPlace: $('#BirthPlace').val(),
