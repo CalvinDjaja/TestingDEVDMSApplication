@@ -1,0 +1,82 @@
+﻿@using DevExtreme.AspNet.Mvc;
+@using TestingDEVDMSApplication.Entity;
+
+@{
+    ViewData["Title"] = "Dashboard - Score Group";
+}
+
+
+<partial name="_Header.cshtml" />
+
+<section class="content" style="margin-top:-70px; position:relative; flex-direction: column;">
+    <div class="text-center">
+        <h1 class="display-4">ScoreGroup</h1>
+
+        @(Html.DevExtreme().DataGrid<ScoreItem>()
+            .ID("ScoreGroupGrid")
+            .ShowBorders(true)
+            .DataSource(d => d.Mvc()
+            .Controller("ScoreGroup")
+            .LoadAction("GetAllScoreItem")
+            .Key("ID")
+            )
+            .Columns(c =>
+            {
+                c.Add()
+                .Type(GridCommandColumnType.Buttons)
+                .Width("auto")
+                .Buttons(b =>
+                {
+                    b.Add().Icon("edit").OnClick("editrow");
+                });
+                c.AddFor(a => a.ScoreGroupItemID).Caption("ScoreGroupItemID").MinWidth(300);
+                c.AddFor(a => a.ItemLabel).Caption("Nama").MinWidth(300);
+                c.AddFor(a => a.ScoreF).Caption("Bobot").Width("auto");
+            })
+            .Width("100%")
+            .Scrolling(scrolling => scrolling
+            .Mode(GridScrollingMode.Standard)
+            .UseNative(true)
+            .ShowScrollbar(ShowScrollbarMode.Always)
+            )
+            .ShowBorders(true)
+            .Paging(paging => paging.PageSize(10))
+            .Pager(pager =>
+            {
+                pager.Visible(true);
+                pager.DisplayMode(GridPagerDisplayMode.Full);
+                pager.ShowPageSizeSelector(true);
+                pager.AllowedPageSizes(new JS("[10, 25, 50, 75]"));
+                pager.ShowInfo(true);
+                pager.ShowNavigationButtons(true);
+            })
+            .FilterRow(f => f.Visible(true))
+            .SearchPanel(searchPanel => searchPanel.Visible(true).Width(240).Placeholder("Search..."))
+            .Selection(s => s.Mode(SelectionMode.Single))
+            .FocusedRowEnabled(true)
+            .HeaderFilter(f => f.Visible(true))
+            .FocusedRowKey(6)
+            .Editing(editing =>
+            {
+                editing.Mode(GridEditMode.Popup);
+                editing.UseIcons(true);
+            })
+            )
+
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(function () {
+
+    });
+
+    function editrow(e) {
+        location.href = "/ScoreGroup/Update/" + e.row.data.ID;
+    }
+
+    function statusStyle(e) {
+        e.cellElement.css("text-align", "center");
+    }
+
+</script>

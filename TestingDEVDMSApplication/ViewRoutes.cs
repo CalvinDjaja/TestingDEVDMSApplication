@@ -4,5 +4,6 @@
     {
         public static string Home(string actionName) => string.Format("~/Views/Home/{0}.cshtml", actionName);
         public static string Customer(string actionName) => string.Format("~/Views/Customer/{0}.cshtml", actionName);
+        public static string ScoreGroup(string actionName) => string.Format("~/Views/ScoreGroup/{0}.cshtml", actionName);
     }
 }

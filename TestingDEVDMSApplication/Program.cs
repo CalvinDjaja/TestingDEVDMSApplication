@@ -30,6 +30,7 @@ builder.Services.AddScoped<IScoreItemRepository, ScoreItemRepository>();
 
 // Services
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IScoreGroupService, ScoreGroupService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(o =>

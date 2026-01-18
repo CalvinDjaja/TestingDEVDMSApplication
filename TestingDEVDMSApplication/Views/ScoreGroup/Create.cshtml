@@ -1,0 +1,145 @@
+﻿@using DevExtreme.AspNet.Mvc;
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions
+{
+	public string GetAntiXsrfRequestToken()
+	{
+		return Xsrf.GetAndStoreTokens(Context).RequestToken!;
+	}
+}
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<partial name="_Header.cshtml" />
+
+<section class="content" style="margin-top:-70px; position:relative; flex-direction: column;">
+	<div class="container-fluid pb-1">
+		<div class="card card-danger card-outline card-outline-tabss">
+			<div class="card-header">
+				<h3 class="card-title">Form</h3>
+				<div class="card-tools">
+					<button type="button" class="btn btn-tool" data-card-widget="collapse">
+						<i class="fas fa-minus"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="card-body mb-3">
+				<div class="mx-3 p-1">
+
+					<div class="form-row">
+
+						<h3 class="card-title">Indentitas</h3>
+						<hr>
+
+						<div class="col-md-12" id="rowScoreGroup">
+							<label for="EducationLookup">Score Group<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("ScoreGroup")
+														.LoadAction("GetAllScoreGroup")
+														.Key("ID")
+														)
+														.ID("ScoreGroupLookup")
+														.DropDownOptions(p => p.Title("Pilih Score Group").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayScoreGroupLoookup"))
+														.OnValueChanged("valueChangedScoreGroupLoookup")
+														.SearchExpr(new[] { "GroupName" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- GroupName %></dt>
+									<dt><%- BobotB %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
+
+						<div class="col-md-12" id="rowScoreGroupItem">
+							<label for="ScoreGroupItemLookup">Score Group Item<span class="text-danger"> *</span></label>
+							@(Html.DevExtreme().Lookup()
+														.DataSource(d => d.Mvc()
+														.Controller("ScoreGroup")
+														.LoadAction("GetScoreGroupItemByScoreGroup")
+														.LoadParams(new { ScoreGroup = new JS("function() { return dt_ScoreGroup; }") })
+														.Key("ID")
+														)
+														.ID("ScoreGroupItemLookup")
+														.DropDownOptions(p => p.Title("Pilih Score Group Item").HideOnOutsideClick(true))
+														.DisplayExpr(new JS("displayScoreGroupItemLookup"))
+														.OnValueChanged("valueChangedScoreGroupItemLookup")
+														.SearchExpr(new[] { "ItemName" })
+														.ItemTemplate(
+							@<text>
+								<dl class="custom-item">
+									<dt><%- ItemName %></dt>
+									<dt><%- BobotD %></dt>
+								</dl>
+							</text>)
+														)
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<div class="ml-2 mb-2 mt-3">
+						<button type="submit" id="btnSave" class="btn btn-primary color-1">Simpan</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+@section Scripts {
+	<script type="text/javascript" asp-append-version="true">
+
+		var dt_ScoreGroup = 0;
+		var dt_ScoreGroupItem = 0;
+
+		function displayScoreGroupLoookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.GroupName + ' - ' + item.BobotB;
+		}
+
+		function valueChangedScoreGroupLoookup(e) {
+			var obj = e.component.option("selectedItem");
+			if (obj) {
+				dt_ScoreGroup = obj.ID;
+			}
+			else {
+				dt_ScoreGroup = 0;
+			}
+
+			$("#ScoreGroupItemLookup").dxLookup("instance").reset();
+			$("#ScoreGroupItemLookup").dxLookup("instance").getDataSource().reload();
+
+			return dt_ScoreGroup;
+		}
+
+		function displayScoreGroupItemLookup(item) {
+			if (!item) {
+				return "";
+			}
+			return item.ItemName + ' - ' + item.BobotD;
+		}
+
+		function valueChangedScoreGroupItemLookup(e) {
+			var obj = e.component.option("selectedItem");
+			if (obj) {
+				dt_ScoreGroupItem = obj.ID;
+			}
+			else {
+				dt_ScoreGroupItem = 0;
+			}
+			return dt_ScoreGroupItem;
+		}
+
+	</script>
+}

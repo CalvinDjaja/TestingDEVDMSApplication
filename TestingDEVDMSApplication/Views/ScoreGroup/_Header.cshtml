@@ -1,0 +1,29 @@
+﻿
+<header>
+    <div class="pb-2">
+        <h2 class="navbar navbar-primary" href="#">@ViewBag.Header </h2>
+    </div>
+    <nav class="navbar navbar-expand-md navbar-primary navbar-light border-bottom-0" style="padding-bottom : 75px; margin-top:-20px;">
+        <button class="navbar-toggler bg-light ml-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                
+                <li class="nav-item">
+                    <a asp-controller="ScoreGroup" asp-action="Create" class="nav-link bg-light rounded hover shadow m-1 py-2 px-4">
+                        <span class="fas fa-plus"></span>
+                        New
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-controller="ScoreGroup" asp-action="Index" class="nav-link bg-light rounded hover shadow m-1 py-2 px-4">
+                        <span class="fas fa-table"></span>
+                        List
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
